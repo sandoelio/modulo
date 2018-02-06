@@ -77,13 +77,13 @@ include_once('models/Conectar.php');
 
 		}
 
-		public function searchCidade(){
-			$conec  = $this->get_conexao();		
-			$sql = ("SELECT nome FROM cidade where id_estado = :id ");	
-			$stmt = $conec->prepare($sql);
+		public function consultarCidades(){
+			$conec2 = $this->get_conexao();		
+			$sql = ("SELECT * FROM cidade WHERE id_estado = :id");	
+			$stmt = $conec2->prepare($sql);
 			$stmt->bindParam(":id" , $this->id_estado);
-			return $stmt->execute();
-			//return $stmt->fetch();
+			$stmt->execute();
+			return $stmt->fetchAll();
 		}
 
 		

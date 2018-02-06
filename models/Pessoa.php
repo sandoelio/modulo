@@ -10,7 +10,7 @@ include_once('models/Conectar.php');
 		private $cpf;
 		private $observacao;
 		private $cidade;
-		private $estado;
+		
 
 		public function getId(){
 			return $this->$id;
@@ -60,28 +60,30 @@ include_once('models/Conectar.php');
 			$this->cidade = $cidade;
 		}
 
-		public function getEstado(){
-			return $this->$estado;
-		}
-
-		public function setEstado($estado){
-			$this->estado = $estado;
-		}
+		
 
 		//pesquisa no banco de dados
 		public function consulta(){
-			$conn = $this->get_conexao();
-			return $conn->query("SELECT p.id AS id_pessoa, p.nome AS nome_pessoa, p.email ,p.cpf, p.observacao,c.nome AS nome_cidade, e.sigla AS sigla_estado,
-					c.id AS id_cidade, e.nome AS nome_estado, e.id AS id_estado,
-				FROM pessoa p
-				INNER JOIN cidade c ON p.id_cidade = c.id
-				INNER JOIN estado e ON c.id_estado = e.id")->fetchAll();
+			$conn = $this->get_conexao();			
+				return $conn->query("
+					SELECT 
+							p.id AS id_pessoa, 
+							p.nome AS nome_pessoa,
+							c.nome AS nome_cidade,
+							e.nome AS nome_estado,
+							* 
+						FROM 
+							pessoa p
+							LEFT JOIN cidade c ON p.id_cidade = c.id
+							LEFT JOIN estado e ON c.id_estado = e.id
+						ORDER BY 
+							p.nome")->fetchAll();
 
 		}
 
 		public function inserir(){
 			$conexao  = $this->get_conexao();
-			$cadastro = $conexao->prepare("INSERT INTO pessoa (nome, email, cpf, observacao, id_cidade,) VALUES (:nome, :email, :cpf, :observacao, :id_cidade)");
+			$cadastro = $conexao->prepare("INSERT INTO pessoa (nome, email, cpf, observacao, id_cidade) VALUES (:nome, :email, :cpf, :observacao, :id_cidade)");
 			$cadastro->bindParam(":nome", $this->nome);
 			$cadastro->bindParam(":email", $this->email);
 			$cadastro->bindParam(":cpf", $this->cpf);

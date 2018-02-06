@@ -36,6 +36,34 @@ include_once('models/Estado.php');
 
 	       	}
 
-	}
+	       	public function editar(){
+
+				if (isset($_GET) && !empty($_GET)) {
+					//pesquisa cidade
+					$model = new Pessoa();
+					$model->setId($_GET['id']);
+					$cidade = $model->consulta();
+
+/*
+					$model = new Cidade();
+					$model->setId($_GET['id']);
+					$cidade = $model->getCidade();
+					
+					//pesquisa todos estados
+				   	$model = new Estado();
+					$estados = $model->search();
+		    		
+					//render form
+					include_once('./views/View.php');
+					$view = new view('pessoa/editar');
+					//passando os parametros para o editar
+		    		$view->assign('rsCidade', $cidade); 
+		    		$view->assign('rsEstados', $estados);
+*/
+		    		exit;
+			    }
+
+	        }
+    }
 
 ?>

@@ -61,14 +61,16 @@
                           
                     <label for="forCidade">Cidade</label>
                         <select id="cidade" name="cidade" value="" >
-                            <option value="" >Selecione</option>                                        
+                            <option value="" >Selecione</option>
+                            
+
                         </select>
-                       
+                 </center>      
 
                     <div class="row">
                         <div class="col-md-12">
                             <input type="button" id="btnSubmit" class="btn btn-primary" value="Salvar"></input>
-                            <a href="./?controller=Cidade&action=consultar" class="btn btn-default">Cancelar</a>
+                            <a href="./?controller=Pessoa&action=consultar" class="btn btn-default">Cancelar</a>
                         </div>
                     </div> 
 
@@ -154,7 +156,7 @@
             var id_estado = $("#estado option:selected").val();           
             //buscando o arquivo consultar e passando os parametos opcao e valor retornado na function (dados)                          
             $.getJSON('./?controller=Cidade&action=consultarCidades&id='+id_estado, function (dados){
-                console.log(dados);return false;
+               console.log(dados);
                 if (dados.length > 0){  
                     var option = '<option>Selecione...</option>';
                     $.each(dados, function(i, obj){

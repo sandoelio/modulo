@@ -83,7 +83,8 @@ include_once('models/Estado.php');
 
 				$model = new Cidade();
 				$model->setId_estado($_GET['id']);
-				echo $model->searchCidade();
+				echo json_encode($model->consultarCidades());
+				
 
 	
         }

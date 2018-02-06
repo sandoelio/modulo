@@ -9,6 +9,17 @@
 	 <link href="isset/css/style.css" rel="stylesheet">
 	 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
+
+	 <script type="text/javascript">
+
+		    //ao clicar no botao editar direciona para o controllerCidade/editar
+		    function editar($id){
+		    	$(location).attr('href','./?controller=Pessoa&action=editar&id='+$id);
+		
+		    }
+	
+	</script>
+
  </head>
  <body>
 	<!--faixa do topo-->
@@ -61,7 +72,7 @@
 								    <td><?php echo $pessoa['nome_estado'];?></td>
 								    <td class="actions">
 								<tr>
-						    <td><input type="button" id="btnEditar" name="btnEditar" class="btn btn-warning btn-xs" onclick="editar()" class="btn btn-danger btn-xs" value="Editar" ></input>
+						    <td><input type="button" id="btnEditar" name="btnEditar" class="btn btn-warning btn-xs" onclick="editar(<?= trim($pessoa["id_pessoa"]); ?>)" class="btn btn-danger btn-xs" value="Editar" ></input>
 								<input type="button" id="btnExcluir" name="btnExcluir" onclick="excluir();" class="btn btn-danger btn-xs" value="Excluir" ></input>
 							</td>
 					    </tr>											    
