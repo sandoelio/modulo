@@ -58,9 +58,7 @@ include_once('models/Conectar.php');
 
 		public function setCidade($cidade){
 			$this->cidade = $cidade;
-		}
-
-		
+		}	
 
 		//pesquisa no banco de dados
 		public function consulta(){
@@ -90,6 +88,34 @@ include_once('models/Conectar.php');
 			$cadastro->bindParam(":observacao", $this->observacao);
 			$cadastro->bindParam(":id_cidade", $this->cidade);
 			return $cadastro->execute();
+
+		}
+
+		public function consultaPessoa(){
+           
+			$conec  = $this->get_conexao();		
+			$sql = ("SELECT
+							p.id AS id_pessoa, 
+							p.nome AS nome_pessoa, 
+							p.email,
+							p.cpf,
+							p.observacao,
+							c.nome AS nome_cidade,
+							c.id AS id_cidade,
+							e.nome AS nome_estado,
+							e.id AS id_estado
+						FROM 
+							pessoa p
+							INNER JOIN cidade c ON p.id_cidade = c.id
+							INNER JOIN estado e ON c.id_estado = e.id
+						WHERE 
+							p.id = :id");	
+
+			$stmt = $conec->prepare($sql);
+			$stmt->bindParam(":id" , $this->id);
+			$stmt->execute();
+			return $stmt->fetch();
+		
 
 		}
 

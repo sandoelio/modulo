@@ -39,27 +39,29 @@ include_once('models/Estado.php');
 	       	public function editar(){
 
 				if (isset($_GET) && !empty($_GET)) {
-					//pesquisa cidade
+					//pesquisa pessoas
 					$model = new Pessoa();
 					$model->setId($_GET['id']);
-					$cidade = $model->consulta();
-
-/*
-					$model = new Cidade();
-					$model->setId($_GET['id']);
-					$cidade = $model->getCidade();
+					$pessoas = $model->consultaPessoa();
 					
 					//pesquisa todos estados
-				   	$model = new Estado();
+				    $model = new Estado();
 					$estados = $model->search();
+
+					$model = new Cidade();					
+					$cidades = $model->search();
+					
 		    		
 					//render form
 					include_once('./views/View.php');
+
 					$view = new view('pessoa/editar');
 					//passando os parametros para o editar
-		    		$view->assign('rsCidade', $cidade); 
+		    		$view->assign('rsCidades', $cidades); 
+		    		$view->assign('rsPessoas', $pessoas);
 		    		$view->assign('rsEstados', $estados);
-*/
+
+
 		    		exit;
 			    }
 
