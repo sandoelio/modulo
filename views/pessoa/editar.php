@@ -131,8 +131,7 @@
             //seleciona no combo estado o valor da opcao e atribui ao id_estado
             var id_estado = $("#estado option:selected").val();           
             //buscando o arquivo consultar e passando os parametos opcao e valor retornado na function (dados)                          
-            $.getJSON('./?controller=Cidade&action=consultarCidades&id='+id_estado, function (dados){
-               console.log(dados);
+            $.getJSON('./?controller=Cidade&action=consultarCidades&id='+id_estado, function (dados){             
                 if (dados.length > 0){  
                     var option = '<option>Selecione...</option>';
                     $.each(dados, function(i, obj){
@@ -144,7 +143,25 @@
 
             });
 
-        }); 
+        });
+
+
+        $("#cidade").change(function(e){ 
+
+            var id_cidade = $("#cidade option:selected").val();                                     
+            $.getJSON('./?controller=Estado&action=consultar&id='+id_cidade, function (dados){           
+                if (dados.length > 0){  
+                    var option = '<option>Selecione...</option>';
+                    $.each(dados, function(i, obj){
+                        option += '<option value="'+obj.id+'">'+obj.nome+'</option>';
+                    });
+                
+                }
+                $('#estado').html(option);
+
+            });
+
+        });  
 
     
   });
