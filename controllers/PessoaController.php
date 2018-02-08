@@ -66,6 +66,34 @@ include_once('models/Estado.php');
 			    }
 
 	        }
+
+
+			public function update(){
+			
+				if (isset($_POST) && !empty($_POST)) {
+					$model = new Pessoa();
+					$model->setId($_POST['id']);
+					$model->setNome($_POST['nome']);
+					$model->setEmail($_POST['email']);
+					$model->setCpf($_POST['cpf']);
+					$model->setCidade($_POST['cidade']);
+					$model->setObservacao($_POST['observacao']);
+					echo $model->atualizar();				
+					exit;			
+		        }
+
+		    }
+
+		    public function excluir(){
+
+				if (isset($_POST) && !empty($_POST)) {
+					$model = new Pessoa();
+					$model->setId($_POST['id']);
+					echo $model->excluir();
+					exit;
+			    }
+
+			}
     }
 
 ?>

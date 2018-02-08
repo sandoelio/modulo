@@ -12,6 +12,28 @@
 
 	 <script type="text/javascript">
 
+			function excluir($id){
+
+				var p = {  
+            	 'id': $id              
+           		} 
+
+           		$.ajax({
+	                type:'POST',
+	                url:'./?controller=Pessoa&action=excluir',
+	                data: p,        
+	                success: function(data){ 
+		                if(data){
+	                       alert("Excluido com Sucesso!");
+	                       $(location).attr('href','./?controller=Pessoa&action=consultar');  
+	                    }else {
+	                       alert('Erro ao excluir');
+	                    }
+                    }
+              
+                });       
+		    }
+
 		    //ao clicar no botao editar direciona para o controllerCidade/editar
 		    function editar($id){
 		    	$(location).attr('href','./?controller=Pessoa&action=editar&id='+$id);
@@ -71,11 +93,12 @@
 								    <td><?php echo $pessoa['nome_cidade'];?></td>
 								    <td><?php echo $pessoa['nome_estado'];?></td>
 								    <td class="actions">
-								<tr>
-						    <td><input type="button" id="btnEditar" name="btnEditar" class="btn btn-warning btn-xs" onclick="editar(<?= trim($pessoa["id_pessoa"]); ?>)" class="btn btn-danger btn-xs" value="Editar" ></input>
-								<input type="button" id="btnExcluir" name="btnExcluir" onclick="excluir();" class="btn btn-danger btn-xs" value="Excluir" ></input>
-							</td>
-					    </tr>											    
+								
+						    
+							    	<input type="button" id="btnEditar" name="btnEditar" class="btn btn-warning btn-xs" onclick="editar(<?= trim($pessoa["id_pessoa"]); ?>)" class="btn btn-danger btn-xs" value="Editar" ></input>
+									<input type="button" id="btnExcluir" name="btnExcluir" onclick="excluir(<?= trim($pessoa["id_pessoa"]); ?>);" class="btn btn-danger btn-xs" value="Excluir" ></input>
+								</td>
+					    		</tr>											    
  						<?php
 					        }	                
 						?>

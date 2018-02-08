@@ -32,7 +32,7 @@
                   
       <form action="#" method="POST" id="formEditar">
           <div class="row">
-                          
+               <!--campos ocultos para trabalhar com o id-->           
               <input type="hidden" name="editarId" class="form-control" id="editarId" value="<?php echo $rsPessoas['id_pessoa'];?>" />
               <input type="hidden" name="idCidade" class="form-control" id="idCidade" value="<?php echo $rsPessoas['id_cidade'];?>" />
               <input type="hidden" name="idEstado" class="form-control" id="idEstado" value="<?php echo $rsPessoas['id_estado'];?>" />
@@ -86,7 +86,7 @@
 	    <div class="row">
 	      <div class="col-md-12">
   	  	  <button type="button" id="btn_atualizar" name="btn_atualizar" class="btn btn-primary">Atualizar</button>
-  		    <a href="./?controller=Cidade&action=consultar" class="btn btn-default">Cancelar</a>
+  		    <a href="./?controller=Pessoa&action=consultar" class="btn btn-default">Cancelar</a>
 	      </div>
 	    </div>
     </form>
@@ -102,18 +102,21 @@
         
     $("#btn_atualizar").click(function(){
          var p = {  
-                   'id'   : $('#editarId').val(),  
-                   'nome' : $('#editarNome').val(),
-                   'estado': $('#id_estado').val(),                  
-                }                                
+                   'id': $('#editarId').val(),                  
+                   'nome' : $('#nome').val(),
+                   'email': $('#email').val(),                  
+                   'cpf': $('#cpf').val(),                  
+                   'cidade': $('#cidade').val(),                  
+                   'observacao': $('#observacao').val(),                  
+                }                               
                 $.ajax({
                     type:'POST',
-                    url:'./?controller=Cidade&action=update',
+                    url:'./?controller=Pessoa&action=update',
                     data: p,        
                     success: function(data){ 
                       if(data){
                           alert("Atualizado com Sucesso!");
-                          $(location).attr('href','./?controller=Cidade&action=consultar');  
+                          $(location).attr('href','./?controller=Pessoa&action=consultar');  
                       }else {
                           alert('Dados nao Atualizado');
                         }
@@ -136,8 +139,7 @@
                     var option = '<option>Selecione...</option>';
                     $.each(dados, function(i, obj){
                         option += '<option value="'+obj.id+'">'+obj.nome+'</option>';
-                    });
-                
+                    });               
                 }
                 $('#cidade').html(option);
 
@@ -145,20 +147,21 @@
 
         });
 
-
         $("#cidade").change(function(e){ 
+            //adicionou o valor selecionado no id_cidade
+            var id_cidade = $("#cidade option:selected").val();  
+            //direcionado para controller passando o id_estado adicionado no parametro id
+            $.getJSON('./?controller=Cidade&action=consultarEstados&id='+id_cidade, function (dados){ 
 
-            var id_cidade = $("#cidade option:selected").val();                                     
-            $.getJSON('./?controller=Estado&action=consultar&id='+id_cidade, function (dados){           
                 if (dados.length > 0){  
-                    var option = '<option>Selecione...</option>';
+                    // forech pega o valor (dados) e adiciona no obj
                     $.each(dados, function(i, obj){
-                        option += '<option value="'+obj.id+'">'+obj.nome+'</option>';
+                    //  e  adicionado o valor no combo estado
+                        $("#estado").val(obj.id_estado);
                     });
                 
                 }
-                $('#estado').html(option);
-
+                
             });
 
         });  

@@ -84,8 +84,14 @@ include_once('models/Estado.php');
 				$model = new Cidade();
 				$model->setId_estado($_GET['id']);
 				echo json_encode($model->consultarCidades());
-				
+	
+        }
 
+        public function consultarEstados(){
+
+				$model = new Cidade();
+				$model->setId($_GET['id']);
+				echo json_encode($model->getEstadoByIdCidade());
 	
         }
         

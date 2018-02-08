@@ -67,15 +67,6 @@ include_once('models/Conectar.php');
 			return $atualizar->execute();
 	  } 
 
-	  public function consultarEstado(){
-			$conec2 = $this->get_conexao();		
-			$sql = ("SELECT * FROM estado WHERE id_cidade = :id");	
-			$stmt = $conec2->prepare($sql);
-			$stmt->bindParam(":id" , $this->id_cidade);
-			$stmt->execute();
-			return $stmt->fetchAll();
-		} 
-
 	} 
 
 ?>

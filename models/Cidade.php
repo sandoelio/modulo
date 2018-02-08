@@ -86,6 +86,14 @@ include_once('models/Conectar.php');
 			return $stmt->fetchAll();
 		}
 
+		public function getEstadoByIdCidade(){
+			$conec3 = $this->get_conexao();		
+			$sql = ("SELECT id_estado FROM cidade WHERE id = :id");	
+			$stmt = $conec3->prepare($sql);
+			$stmt->bindParam(":id" , $this->id);
+			$stmt->execute();
+			return $stmt->fetchAll();
+		} 
 		
 
 	}

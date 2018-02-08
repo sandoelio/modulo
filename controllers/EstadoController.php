@@ -59,15 +59,6 @@ include_once('models/Estado.php');
 		    }
 	    
         }
-
-        public function consultarEstados(){
-
-				$model = new Estado();
-				$model->setId_cidade($_GET['id']);
-				echo json_encode($model->consultarEstado());
-				
-
-	
-        }
+        
     }
 ?>
